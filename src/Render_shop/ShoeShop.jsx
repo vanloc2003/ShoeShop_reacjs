@@ -1,5 +1,7 @@
 // import React from "react";
+import { useState } from "react";
 import CardShoe from "./CardShoe";
+import Detail from "./Detail";
 const dataShoe = [
   {
     id: 1,
@@ -142,21 +144,39 @@ const dataShoe = [
     image: "https://svcy3.myclass.vn/images/nike-air-max-270-react.png",
   },
 ];
+
 const ShoeShop = () => {
-  const renderCardShoe = () => {
-    const arrShoeShop = dataShoe.map((index) => {
-      return (
-        <div key={index.id}>
-          <CardShoe dataItem={index} />
-        </div>
-      );
-    });
-    return arrShoeShop;
-  };
+  const [detailContent, setDetailContent] = useState({
+    id: 1,
+    name: "Adidas Prophere",
+    alias: "adidas-prophere",
+    price: 350,
+    description:
+      "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
+    shortDescription:
+      "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
+    quantity: 995,
+    image: "https://svcy3.myclass.vn/images/adidas-prophere.png",
+  });
+
   return (
     <div>
       <h3 className="text-3xl text-center font-bold bg-blue-400">Shop Shoe</h3>
-      <div className="grid grid-cols-3 gap-4">{renderCardShoe()}</div>
+      <div className="grid grid-cols-3 gap-4">
+        {dataShoe.map((item) => {
+          return (
+            <div key={item.id}>
+              <CardShoe
+                dataItem={item}
+                setDetailContent={() => setDetailContent(item)}
+              />
+            </div>
+          );
+        })}
+        ;
+      </div>
+
+      <Detail changeCard={detailContent} />
     </div>
   );
 };
